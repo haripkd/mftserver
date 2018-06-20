@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+JSCAPE-Secure-Server-Functions: com.jscape.inet.mft.functions.repo.IsHoliday
+
