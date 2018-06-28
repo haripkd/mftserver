@@ -31,9 +31,9 @@ Exceute the build using ant, On execute and build success two jars will be creat
 
 2. customactions.jar
 
-If you need only custom functions for JSCAPE MFT Server Copy the customfunctions.jar from "dist" folder to <jscape-mft-server-installation-path>/libs/ext.
+If you need only custom functions for JSCAPE MFT Server Copy the customfunctions.jar from "dist" folder to jscape-mft-server-installation-path/libs/ext.
 
-If you need custom actions for JSCAPE MFT Server Copy the customfunctions.jar from "dist" folder to <jscape-mft-server-installation-path>/libs/actions.
+If you need custom actions for JSCAPE MFT Server Copy the customfunctions.jar from "dist" folder to jscape-mft-server-installation-path/libs/actions.
 
 Need both, Copy both the files as mentioned above.
 
