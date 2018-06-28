@@ -1,8 +1,7 @@
-# mftserver
 # Open source code repository for JSCAPE MFT Server 
-# Note down the below instructions
+ 
 
-This repositroy contains the source files for functions and actions which are used in JSCAPE-MFT-Server.
+This repository contains the source files for functions and actions which are used in JSCAPE-MFT-Server.
 
 Clone the repository from - https://github.com/jscape/mftserver.git after Clone the directory mftserver will contain folder structure as below;
 
