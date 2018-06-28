@@ -6,9 +6,9 @@
 
 Below links help you in understanding custom Triggers and Functions
 
+https://www.jscape.com/blog/how-to-create-custom-trigger-actions
 https://www.jscape.com/blog/how-to-create-custom-trigger-functions
 
-http://files.jscape.com/secureftpserver/docs/index.html?defining_custom_action_types.htm
 
 ### Prerequisites
 
