@@ -21,7 +21,7 @@ What things you need to install the software and how to install them
 ```
 
 
-### Steps to clone the repository and buld the source
+### Steps to clone the repository and build the source
 ```
 
 Clone the repository from - https://github.com/jscape/mftserver.git after Clone the directory mftserver will contain folder structure as below;
@@ -98,6 +98,6 @@ Actions
 
 ## Authors
 
-* **Hari Prasad** - *Initial work* - [PurpleBooth](https://github.com/hariprasadpkd)
+* **Hari Prasad** - *Initial work* - [hariprasadpkd](https://github.com/hariprasadpkd)
 
 See also the list of [contributors](https://github.com/jscape/mftserver/graphs/contributors) who participated in this project.
