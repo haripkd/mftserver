@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project name="jscapeopensource" default="custombuild" basedir=".">
+
+     <property name="src.dir" location="src" />
+     <property name="build.dir" location="bin" />
+	 <property name="dist.dir" location="dist" />
+     <property file="build.properties"/>
+
+
+    <!-- JDK definitions -->
+  
+  <property name="jdk.bin" value="${jdk.home}/bin"/>
+    <path id="jdk.classpath">
+    <fileset dir="${jdk.home}">
+      <include name="jre/lib/*.jar"/>
+    </fileset>
+  </path>
+  
+
+
+  <property name="project.jdk.home" value="${jdk.home}"/>
+  <property name="project.jdk.bin" value="${jdk.bin}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath"/>
+ 
+
+	 <!-- Project Libraries -->
+  
+  <path id="library.libs.classpath">
+    <pathelement location="${mftserver.installation.path}/libs/ftpserver.jar"/>
+	<pathelement location="${basedir}/libs/org.eclipse.jetty.util.jar"/>
+  </path>
+  
+
+    <path id="customaction.module.production.classpath">
+    <path refid="jdk.classpath"/>
+    <path refid="library.libs.classpath"/>
+  </path>
+  
+	
+	<!-- Deletes the existing build, docs and dist directory-->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+         <delete dir="${dist.dir}" />
+    </target>
+
+    <!-- Creates the  build, docs and dist directory-->
+    <target name="makedir">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${dist.dir}" />
+    </target>
+
+
+  <!-- Compiles the java code (including the usage of library for JUnit -->
+    <target name="compile" depends="clean, makedir">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+		<classpath refid="customaction.module.production.classpath"/>
+        </javac>
+
+    </target>
+
+
+    <!--Creates the deployable jar file  -->
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}\customfunctions.jar">
+		<fileset dir="${build.dir}">
+		<include name="com/jscape/inet/mft/functions/**">
+		</include>
+		</fileset>
+		<manifest>
+        <attribute name="JSCAPE-Secure-Server-Functions" value="${function.class}"/>
+		</manifest>
+        </jar>
+
+		 <jar destfile="${dist.dir}\customactions.jar" >
+		 <fileset dir="${build.dir}">
+		<include name="com/jscape/inet/mft/workflow/actions/**">
+		</include>
+		</fileset>
+        </jar>
+    </target>
+
+
+	   <target name="custombuild" depends="compile, jar">
+        <description>jscapeopensource</description>
+    </target>
+
+</project>
