@@ -6,10 +6,13 @@
 
 Below links help you in understanding custom Triggers and Functions
 
-https://www.jscape.com/blog/how-to-create-custom-trigger-actions
-https://www.jscape.com/blog/how-to-create-custom-trigger-functions
+```
+- https://www.jscape.com/blog/how-to-create-custom-trigger-actions
 
 
+- https://www.jscape.com/blog/how-to-create-custom-trigger-functions
+
+```
 ### Prerequisites
 
 What things you need to install the software and how to install them
