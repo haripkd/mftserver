@@ -1,7 +1,28 @@
 # Open source code repository for JSCAPE MFT Server 
  
+ This repository contains the source files for functions and actions which are used in JSCAPE-MFT-Server.
 
-This repository contains the source files for functions and actions which are used in JSCAPE-MFT-Server.
+ ## Getting Started
+
+Below links help you in understanding custom Triggers and Functions
+
+https://www.jscape.com/blog/how-to-create-custom-trigger-functions
+
+http://files.jscape.com/secureftpserver/docs/index.html?defining_custom_action_types.htm
+
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+```
+- JDK 1.7 or above
+- Ant 1.8 or above
+- JSCAPE MFT Server - Download the latest version from here https://www.jscape.com/downloads/jscape-mft-server
+```
+
+
+### Steps to clone the repository and buld the source
+```
 
 Clone the repository from - https://github.com/jscape/mftserver.git after Clone the directory mftserver will contain folder structure as below;
 
@@ -31,6 +52,11 @@ Exceute the build using ant, On execute and build success two jars will be creat
 
 2. customactions.jar
 
+```
+
+### Deloyment and Service restart
+```
+
 If you need only custom functions for JSCAPE MFT Server Copy the customfunctions.jar from "dist" folder to jscape-mft-server-installation-path/libs/ext.
 
 If you need custom actions for JSCAPE MFT Server Copy the customfunctions.jar from "dist" folder to jscape-mft-server-installation-path/libs/actions.
@@ -38,6 +64,12 @@ If you need custom actions for JSCAPE MFT Server Copy the customfunctions.jar fr
 Need both, Copy both the files as mentioned above.
 
 Restart the server to get Custom actions and Custom functions inside JSCAPE MFT Server.
+
+```
+
+
+### Functions and Actions in current Repository
+```
 
 The current Source has the below functions and actions;
 
@@ -62,10 +94,10 @@ Actions
 5. KasperSky Virus Scan 
 
 
-Bleow links help you in understanding custom Triggers and Functions
+```
 
-https://www.jscape.com/blog/how-to-create-custom-trigger-functions
+## Authors
 
-http://files.jscape.com/secureftpserver/docs/index.html?defining_custom_action_types.htm
+* **Hari Prasad** - *Initial work* - [PurpleBooth](https://github.com/hariprasadpkd)
 
-
+See also the list of [contributors](https://github.com/jscape/mftserver/graphs/contributors) who participated in this project.
