@@ -4,7 +4,7 @@
 
  ## Getting Started
 
-Below links help you in understanding custom Triggers and Functions
+Below links help you in understanding custom Trigger Actions and Functions
 
 ```
 - https://www.jscape.com/blog/how-to-create-custom-trigger-actions
