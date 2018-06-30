@@ -30,17 +30,6 @@ What things you need to install the software and how to install them
 Clone the repository from - https://github.com/jscape/mftserver.git after Clone the directory mftserver will contain folder structure as below;
 
 - .git (D)
-- com (D)
-- libs (D)
-- build.properties (F)
-- build.xml (F)
-- README.md (F)
-
-D - Directory and F - File
-
-After Cloning make a Directory named "src" and move the direcory "com" to "src"; Once done the Final folder structure will be as below;
-
-- .git (D)
 - src (D)
 - libs (D)
 - build.properties (F)
