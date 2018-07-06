@@ -18,8 +18,8 @@ Below links help you in understanding custom Trigger Actions and Functions
 What things you need to install the software and how to install them
 
 ```
-- JDK 1.7 or above
-- Ant 1.8 or above
+- JDK 1.7 or JDK 1.8 - Download JDK 1.8 from here http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
+- Ant 1.8 or above - Download the latest version from here https://ant.apache.org/
 - JSCAPE MFT Server - Download the latest version from here https://www.jscape.com/downloads/jscape-mft-server
 ```
 
