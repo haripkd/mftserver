@@ -1,13 +1,16 @@
 package com.jscape.inet.mft.workflow.actions.repo.av;
 
 import com.jscape.inet.mft.workflow.AbstractAction;
-import com.jscape.inet.mft.workflow.actions.repo.av.util.ClamAvUtil;
+import com.jscape.inet.mft.workflow.actions.repo.av.util.AvUtil;
 import com.jscape.util.Assert;
 import com.jscape.util.reflection.PropertyDescriptor;
 import com.jscape.util.reflection.StringField;
 import com.jscape.util.reflection.types.FileField;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("Location", new FileField(), true, false),
             new PropertyDescriptor("Arguments", new StringField(), false, false),
+            new PropertyDescriptor("OutputLog", new FileField(), false, false),
             ACTION_PRIORITY_DESCRIPTOR,
             TRIGGER_ERROR_MESSAGE_DESCRIPTOR,
             LOG_ACTION_DESCRIPTOR,
@@ -31,6 +35,8 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     private List<String> commandElements;
     private Process process;
     private String scanResponse;
+    private String outputLog;
+    private File outputFile;
 
 
     public ClamAvUpdateVirusDefinitionsAction() {
@@ -38,7 +44,7 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     }
 
     /**
-     * Sets the program which is ran. It is requiered.
+     * Sets the program which is ran. It is required.
      *
      * @param value the path to Clam AV - Freshclam
      */
@@ -54,7 +60,17 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
      * @param value the process arguments.
      */
     public void setArguments(String value) {
+        Assert.notNull(value);
         this.arguments = value;
+    }
+
+    public void setOutputLog(String outputLog) {
+        Assert.notNull(outputLog);
+        this.outputLog = outputLog;
+    }
+
+    public void setOutputFile(File outputFile) {
+        this.outputFile = outputFile;
     }
 
     @Override
@@ -81,7 +97,7 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
         if (this.arguments == null && this.arguments.isEmpty()) {
             return;
         }
-        this.commandElements = ClamAvUtil.formatArgument(this.arguments, this.location);
+        this.commandElements = AvUtil.formatArgument(this.arguments, this.location,true);
     }
 
     private void startScan() throws Exception {
@@ -89,7 +105,13 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     }
 
     private void pipeStream() throws IOException {
-        this.scanResponse = ClamAvUtil.processStream(this.process.getInputStream());
+        if (this.outputLog == null || this.outputLog.isEmpty()) {
+            return;
+        }
+        this.scanResponse = AvUtil.processStream(this.process.getInputStream());
+        this.outputFile = new File(this.outputLog);
+        StreamPipe pipe = new StreamPipe(this.scanResponse, this.outputFile);
+        pipe.start();
     }
 
     private void closeStream() throws Exception {
@@ -98,7 +120,7 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     }
 
     private void setupResultMessage() {
-        this.resultMessage = String.format("the scan process has been executed and the response is %s", this.scanResponse);
+        this.resultMessage = String.format("the scan process has %s been executed", this.location);
     }
 
     public String getScanResponse() {
@@ -127,4 +149,36 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     }
 
 
+
+
+
+    private static class StreamPipe
+            extends Thread {
+
+        private final String outLog;
+        private final File outFile;
+        private final String dateOfScan="Date of Scan --> ";
+
+        private StreamPipe(String response, File file) {
+            Assert.notNull(response);
+            this.outLog = response;
+
+            Assert.notNull(file);
+            this.outFile = file;
+
+            setDaemon(true);
+        }
+
+        public void run() {
+            try {
+                FileWriter fileWriter = new FileWriter(this.outFile,true);
+                fileWriter.write(dateOfScan + new Date() + "\n");
+                fileWriter.write(this.outLog);
+                fileWriter.flush();
+                fileWriter.close();
+            } catch(Throwable e) {
+                // ignore
+            }
+        }
+    }
 }
