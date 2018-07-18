@@ -26,8 +26,8 @@ public class AvastUpdateVirusDefinitionsAction extends AbstractAction {
 
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("Location", new FileField(), true, false),
-            new PropertyDescriptor("Arguments", new StringField(), true, false),
-            new PropertyDescriptor("OutputLog", new FileField(), true, false),
+            new PropertyDescriptor("Arguments", new StringField(), false, false),
+            new PropertyDescriptor("OutputLog", new FileField(), false, false),
             ACTION_PRIORITY_DESCRIPTOR,
             TRIGGER_ERROR_MESSAGE_DESCRIPTOR,
             LOG_ACTION_DESCRIPTOR,
