@@ -70,6 +70,8 @@ Functions
 
 1. IsHoliday
 
+2. AppendDateOrTimeFileName
+
 Actions
 ******
 
@@ -84,6 +86,8 @@ Actions
 4. KasperSky Virus update
 
 5. KasperSky Virus Scan 
+
+6. Split Large Text File
 
 
 ```

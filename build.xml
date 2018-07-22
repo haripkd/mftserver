@@ -76,6 +76,9 @@
 		<include name="com/jscape/inet/mft/workflow/actions/**">
 		</include>
 		</fileset>
+		  <fileset dir="${src.dir}">
+       <include name="**/*.properties"/>
+       </fileset>
         </jar>
     </target>
 
