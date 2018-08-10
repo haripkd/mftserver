@@ -72,6 +72,10 @@ Functions
 
 2. AppendDateOrTimeFileName
 
+3. IsEndOfMonth
+
+4. IsServerKeyValid
+
 Actions
 ******
 
@@ -89,6 +93,12 @@ Actions
 
 6. Split Large Text File
 
+
+```
+
+### Documentation
+```
+Refer the link https://www.jscape.com/marketplace
 
 ```
 
