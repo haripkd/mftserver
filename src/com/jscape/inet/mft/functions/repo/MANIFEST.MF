@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-JSCAPE-Secure-Server-Functions: com.jscape.inet.mft.functions.repo.IsHoliday,com.jscape.inet.mft.functions.repo.AppendDateOrTimeToFileName,com.jscape.inet.mft.functions.repo.IsEndOfMonth,com.jscape.inet.mft.functions.repo.IsServerKeyValid
+JSCAPE-Secure-Server-Functions: com.jscape.inet.mft.functions.repo.IsHoliday,com.jscape.inet.mft.functions.repo.AppendDateOrTimeToFileName,com.jscape.inet.mft.functions.repo.IsEndOfMonth,com.jscape.inet.mft.functions.repo.IsServerKeyValid,com.jscape.inet.mft.functions.repo.IsCertificateValid
 

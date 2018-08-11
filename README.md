@@ -76,6 +76,8 @@ Functions
 
 4. IsServerKeyValid
 
+5. IsCertificateValid
+
 Actions
 ******
 
