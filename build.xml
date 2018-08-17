@@ -27,7 +27,9 @@
   
   <path id="library.libs.classpath">
     <pathelement location="${mftserver.installation.path}/libs/ftpserver.jar"/>
-	<pathelement location="${basedir}/libs/org.eclipse.jetty.util.jar"/>
+	<fileset dir="${basedir}/libs">
+    <include name="**/*.jar" />
+    </fileset>
   </path>
   
 
