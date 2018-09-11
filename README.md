@@ -99,6 +99,8 @@ Actions
 
 8. Export Keys
 
+9. Get Logs
+
 
 ```
 
