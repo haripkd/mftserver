@@ -1,4 +1,4 @@
-package com.jscape.inet.mft.workflow.actions.repo.av;
+package com.jscape.inet.mft.workflow.actions.repo;
 
 import com.jscape.inet.mft.workflow.AbstractAction;
 import com.jscape.util.Assert;
@@ -31,7 +31,7 @@ public class SplitLargeTextFileAction extends AbstractAction {
     protected String splitSize;
 
     public SplitLargeTextFileAction() {
-        super("com.jscape.inet.mft.workflow.actions.repo.av.properties.SplitLargeTextFileHelp");
+        super("com.jscape.inet.mft.workflow.actions.repo.properties.SplitLargeTextFileHelp");
     }
 
 

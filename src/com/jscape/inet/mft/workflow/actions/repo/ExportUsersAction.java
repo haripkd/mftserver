@@ -1,4 +1,4 @@
-package com.jscape.inet.mft.workflow.actions.repo.av;
+package com.jscape.inet.mft.workflow.actions.repo;
 
 import com.jscape.inet.mft.management.client.api.ManagerSubsystem;
 import com.jscape.inet.mft.resources.VirtualRemoteFileDescriptor;
@@ -49,7 +49,7 @@ public class ExportUsersAction extends AbstractAction {
     protected String domain;
 
     public ExportUsersAction() {
-        super("com.jscape.inet.mft.workflow.actions.repo.av.properties.ExportUsersHelp");
+        super("com.jscape.inet.mft.workflow.actions.repo.properties.ExportUsersHelp");
     }
 
     private static long getQuoataInMb(Account account) {

@@ -1,4 +1,4 @@
-package com.jscape.inet.mft.workflow.actions.repo.av;
+package com.jscape.inet.mft.workflow.actions.repo;
 
 import com.jscape.inet.mft.management.client.api.ManagerSubsystem;
 import com.jscape.inet.mft.resources.VirtualRemoteFileDescriptor;
@@ -46,7 +46,7 @@ public class ExportKeysAction extends AbstractAction {
     protected String file;
 
     public ExportKeysAction() {
-        super("com.jscape.inet.mft.workflow.actions.repo.av.properties.ExportKeysHelp");
+        super("com.jscape.inet.mft.workflow.actions.repo.properties.ExportKeysHelp");
     }
 
 
