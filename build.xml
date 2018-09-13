@@ -25,8 +25,13 @@
 
 	 <!-- Project Libraries -->
   
-  <path id="library.libs.classpath">
-    <pathelement location="${mftserver.installation.path}/libs/ftpserver.jar"/>
+   <path id="library.libs.classpath">
+    
+
+	<fileset dir="${mftserver.installation.path}/libs">
+    <include name="**/*.jar" />
+    </fileset>
+
 	<fileset dir="${basedir}/libs">
     <include name="**/*.jar" />
     </fileset>

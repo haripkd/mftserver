@@ -78,6 +78,8 @@ Functions
 
 5. IsCertificateValid
 
+6. FileContentCompare
+
 Actions
 ******
 
