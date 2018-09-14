@@ -80,6 +80,8 @@ Functions
 
 6. FileContentCompare
 
+7. GetDirectorySize
+
 Actions
 ******
 
