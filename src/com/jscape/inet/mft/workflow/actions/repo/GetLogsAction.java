@@ -33,7 +33,7 @@ public class GetLogsAction extends AbstractAction {
     protected String exceptions;
 
     public GetLogsAction(){
-        super("com.jscape.inet.mft.workflow.actions.repo.properties.GetLogsActionHelp");
+        super("com.jscape.inet.mft.workflow.actions.repo.properties.GetLogsHelp");
     }
 
     @Override

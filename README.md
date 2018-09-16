@@ -85,25 +85,27 @@ Functions
 Actions
 ******
 
-1. Clam Av Virus Scan
+1.  Clam Av Virus Scan
 
-2. Clam Av Virus update
+2.  Clam Av Virus update
 
-3. Avast Virus Scan
+3.  Avast Virus Scan
 
-3. Avast Virus update
+3.  Avast Virus update
 
-4. Kasper Sky Virus update
+4.  Kasper Sky Virus update
 
-5. Kasper Sky Virus Scan 
+5.  Kasper Sky Virus Scan 
 
-6. Split Large Text File
+6.  Split Large Text File
 
-7. Export Users 
+7.  Export Users 
 
-8. Export Keys
+8.  Export Keys
 
-9. Get Logs
+9.  Get Logs
+
+10. Copy Url To File
 
 
 ```
