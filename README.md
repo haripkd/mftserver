@@ -82,6 +82,10 @@ Functions
 
 7. GetDirectorySize
 
+8. IsFileNewer
+
+9. IsFileNewerByDate
+
 Actions
 ******
 
