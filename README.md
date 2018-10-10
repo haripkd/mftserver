@@ -68,23 +68,25 @@ The current Source has the below functions and actions;
 Functions
 *********
 
-1. IsHoliday
+1.  IsHoliday
 
-2. AppendDateOrTimeFileName
+2.  AppendDateOrTimeFileName
+ 
+3.  IsEndOfMonth
 
-3. IsEndOfMonth
+4.  IsServerKeyValid
 
-4. IsServerKeyValid
+5.  IsCertificateValid
 
-5. IsCertificateValid
+6.  FileContentCompare
+ 
+7.  GetDirectorySize
 
-6. FileContentCompare
+8.  IsFileNewer
 
-7. GetDirectorySize
+9.  IsFileNewerByDate
 
-8. IsFileNewer
-
-9. IsFileNewerByDate
+10. IsFileNewerByTimeStamp
 
 Actions
 ******
