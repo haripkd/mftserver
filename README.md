@@ -88,6 +88,10 @@ Functions
 
 10. IsFileNewerByTimeStamp
 
+11. GetMaximumHeapInMb
+
+12. GetUsedHeapInMb
+
 Actions
 ******
 
