@@ -92,6 +92,10 @@ Functions
 
 12. GetUsedHeapInMb
 
+13. GetFreeHeapInPercentile
+
+14. GetHeapUsageInPercentile
+
 Actions
 ******
 
