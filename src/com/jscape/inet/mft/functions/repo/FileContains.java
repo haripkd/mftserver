@@ -28,8 +28,8 @@ public class FileContains extends Function {
     @Override
     public Map<String, String> getTemplates() {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("FileContains(filepath,regex)", "Returns true if regular expression matches any content in the file");
-		map.put("FileContainsCopy(filepath,regex,maxlines)", "Returns true if regular expression matches any content in the file on specified maximum lines");
+        map.put("FileContains(filepath,regex)", "Returns true if regular expression matches any content upto 65536 lines in the file");
+		map.put("FileContains(filepath,regex,maxlines)", "Returns true if regular expression matches any content in the file on specified maximum lines");
         return map;
     }
 
@@ -42,14 +42,18 @@ public class FileContains extends Function {
         int lineNo = 1;
         try {
             Scanner fileScanner = new Scanner(file);
-            Pattern pattern = Pattern.compile(phrase);
+            Pattern pattern = Pattern.compile(phrase,Pattern.CASE_INSENSITIVE);
 
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                if (pattern.matcher(line).matches()) return true;
+                if (pattern.matcher(line).matches()){
+					fileScanner.close();
+					return true;
+					}
                 lineNo++;
                 if (lineNo > maxLineLength) break;
             }
+			fileScanner.close();
             return false;
         } catch (Exception e) {
             throw new RuntimeException(e);
