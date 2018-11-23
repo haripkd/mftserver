@@ -123,6 +123,10 @@ Actions
 
 10. Copy Url To File
 
+11. AS2 Messages Report
+
+12. OFTP Messages Report
+
 
 ```
 
