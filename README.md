@@ -82,21 +82,23 @@ Functions
  
 7.  GetDirectorySize
 
-8.  IsFileNewer
+8.  GetDiskUsageInPercentile
 
-9.  IsFileNewerByDate
+9.  IsFileNewer
 
-10. IsFileNewerByTimeStamp
+10. IsFileNewerByDate
 
-11. GetMaximumHeapInMb
+11. IsFileNewerByTimeStamp
 
-12. GetUsedHeapInMb
+12. GetMaximumHeapInMb
 
-13. GetFreeHeapInPercentile
+13. GetUsedHeapInMb
 
-14. GetHeapUsageInPercentile
+14. GetFreeHeapInPercentile
 
-15. FileContains
+15. GetHeapUsageInPercentile
+
+16. FileContains
 
 Actions
 ******
