@@ -2,6 +2,7 @@ package com.jscape.inet.mft.workflow.actions.repo;
 
 import com.jscape.inet.mft.management.client.api.ManagerSubsystem;
 import com.jscape.inet.mft.subsystems.OftpMessageInfo;
+import com.jscape.inet.mft.subsystems.as2.AS2MessageInfo;
 import com.jscape.inet.mft.workflow.AbstractAction;
 import com.jscape.util.Assert;
 import com.jscape.util.reflection.PropertyDescriptor;
@@ -13,6 +14,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -21,24 +24,19 @@ public class OFTPMessagesReportAction extends AbstractAction {
     protected static final String DESCRIPTION = "Export the OFTP Messages for the Domain";
     protected static final String[] COLUMN_HEADER = {"Message ID", "Processed Date", "Message Type", "Direction", "Originator", "Destination", "Filename", "User", "Trading Partner", "Status"};
     protected static final String SHEET_NAME = "OFTP Messages";
-
-    protected static final String USER_DIRECTORY = "user.dir";
-    protected static final String FILE_SEPARATOR = "file.separator";
-    protected static final String ETC_FOLDER = "etc";
-    protected static final String CLIENT_CONFG = "client.cfg";
-
+    protected static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("File", new FileField(), true, false),
-            new PropertyDescriptor("Domain", new StringField(), true, false),
             ACTION_PRIORITY_DESCRIPTOR,
             TRIGGER_ERROR_MESSAGE_DESCRIPTOR,
             LOG_ACTION_DESCRIPTOR,
     };
 
-    protected static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     protected String file;
-    protected String domain;
+
+
 
     public OFTPMessagesReportAction() {
         super("com.jscape.inet.mft.workflow.actions.repo.properties.OFTPMessagesReportHelp");
@@ -47,11 +45,6 @@ public class OFTPMessagesReportAction extends AbstractAction {
     public void setFile(String value) {
         Assert.isValidString(value);
         this.file = value;
-    }
-
-    public void setDomain(String value) {
-        Assert.isValidString(value);
-        this.domain = value;
     }
 
     @Override
@@ -65,47 +58,47 @@ public class OFTPMessagesReportAction extends AbstractAction {
     }
 
     @Override
-    protected void execute() throws Exception {
+    protected void execute()
+            throws Exception {
+        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+            XSSFSheet sheet = workbook.createSheet(SHEET_NAME);
+            fillHeaderOf(sheet);
+            fillDataOf(sheet);
+            save(workbook);
+        }
+    }
 
-        String clientConfigPath = System.getProperty(USER_DIRECTORY)
-                + System.getProperty(FILE_SEPARATOR)
-                + ETC_FOLDER
-                + System.getProperty(FILE_SEPARATOR) + CLIENT_CONFG;
-
-
-        ManagerSubsystem managerSubsystem = new ManagerSubsystem(clientConfigPath);
-        managerSubsystem.connect();
-
-
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
-        XSSFSheet sheet = xssfWorkbook.createSheet(SHEET_NAME);
-
+    private void fillHeaderOf(XSSFSheet sheet) {
         XSSFRow headerRow = sheet.createRow(0);
-
-        // Create header cells
 
         for (int i = 0; i < COLUMN_HEADER.length; i++) {
             XSSFCell cell = headerRow.createCell(i);
             cell.setCellValue(COLUMN_HEADER[i]);
         }
+    }
 
-        // Create Other rows and with data
-
+    private void fillDataOf(XSSFSheet sheet)
+            throws Exception {
         int rowNum = 1;
-        List<OftpMessageInfo> oftpMessageInfoList = managerSubsystem.oftpMessageInfosOf(this.domain);
-        if (null != oftpMessageInfoList) {
-            for (OftpMessageInfo oftpMessageInfo : oftpMessageInfoList) {
-                XSSFRow row = sheet.createRow(rowNum++);
-                createRow(oftpMessageInfo, row);
-            }
+        for (OftpMessageInfo messageInfo : infos()) {
+            XSSFRow row = sheet.createRow(rowNum++);
+            createRow(messageInfo, row);
         }
+    }
 
-        // Write the output to a file
-        FileOutputStream fileOut = new FileOutputStream(this.file);
-        xssfWorkbook.write(fileOut);
-        fileOut.close();
-        xssfWorkbook.close();
-        managerSubsystem.disconnect();
+    private void save(XSSFWorkbook workbook)
+            throws IOException {
+        try (FileOutputStream fileOut = new FileOutputStream(this.file)) {
+            workbook.write(fileOut);
+        }
+    }
+
+    private List<OftpMessageInfo> infos()
+            throws Exception {
+        try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
+            client.connect();
+            return client.oftpMessageInfosOf(this.domain.getName());
+        }
     }
 
     private void createRow(OftpMessageInfo oftpMessageInfo, XSSFRow row) {
