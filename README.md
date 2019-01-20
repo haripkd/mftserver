@@ -129,6 +129,10 @@ Actions
 
 12. OFTP Messages Report
 
+13. Failed Trigger Report
+
+14. Trigger Report By Name
+
 
 ```
 
