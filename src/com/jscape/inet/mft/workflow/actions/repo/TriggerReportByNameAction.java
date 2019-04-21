@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 public class TriggerReportByNameAction extends AbstractAction {
 
@@ -23,6 +24,7 @@ public class TriggerReportByNameAction extends AbstractAction {
     protected static final String[] COLUMN_HEADER = {"Trigger ID", "Trigger Name", "Start Date & Time", "End Date & Time", "Status"};
     protected static final String SHEET_NAME = "Trigger_report";
     protected static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     protected String file;
     protected String triggerName;
@@ -84,7 +86,7 @@ public class TriggerReportByNameAction extends AbstractAction {
             throws Exception {
         int rowNum = 1;
         for (TriggerState state : triggerStates()) {
-            if (state.getTriggerName().equalsIgnoreCase(this.triggerName)) {
+            if (Arrays.asList(this.triggerName.split(",")).contains(state.getTriggerName())) {
                 XSSFRow row = sheet.createRow(rowNum++);
                 createRow(state, row);
             }

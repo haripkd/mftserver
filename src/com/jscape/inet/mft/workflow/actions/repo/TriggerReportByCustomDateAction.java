@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -104,7 +105,7 @@ public class TriggerReportByCustomDateAction extends AbstractAction {
         tDate = new Date(tDate.getTime() + TimeUnit.DAYS.toMillis(1));
         for (TriggerState state : triggerStates()) {
             Date triggerDate = new Date(state.getStartTime());
-            if (state.getTriggerName().equalsIgnoreCase(this.triggerName) && (triggerDate.after(fDate) && triggerDate.before(tDate))) {
+            if (Arrays.asList(this.triggerName.split(",")).contains(state.getTriggerName()) && (triggerDate.after(fDate) && triggerDate.before(tDate))) {
                 XSSFRow row = sheet.createRow(rowNum++);
                 createRow(state, row);
             }
