@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by hari on 9/29/2018.
@@ -30,12 +32,38 @@ public class IsFileNewerByDate extends Function {
 
     @Override
     public Object evaluate(Object[] value) {
+        File file = new File(value[0].toString());
+        Date date = null;
         try {
-            File file = new File(value[0].toString());
-            Date date = dateFormat.parse(value[1].toString());
-            return FileUtils.isFileNewer(file, date);
-        } catch (Throwable e) {
+            String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(value[1].toString());
+            if (matcher.matches()) {
+                dateFormat.setLenient(false);
+                date = dateFormat.parse(value[1].toString());
+            } else {
+                InvalidDate();
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return FileUtils.isFileNewer(file, date);
+
+
     }
+
+    private void InvalidDate() {
+        try {
+            throw new InvalidDateFormatException("Invalid Date");
+        } catch (InvalidDateFormatException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private class InvalidDateFormatException extends Exception {
+        private InvalidDateFormatException(String invalid_date) {
+            super(invalid_date);
+        }
+    }
+
 }
