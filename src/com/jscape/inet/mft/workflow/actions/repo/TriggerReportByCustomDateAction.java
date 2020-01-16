@@ -6,6 +6,7 @@ import com.jscape.inet.mft.workflow.AbstractAction;
 import com.jscape.util.Assert;
 import com.jscape.util.reflection.PropertyDescriptor;
 import com.jscape.util.reflection.StringField;
+import com.jscape.util.reflection.types.DateField;
 import com.jscape.util.reflection.types.FileField;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -27,11 +28,12 @@ public class TriggerReportByCustomDateAction extends AbstractAction {
     protected static final String SHEET_NAME = "Trigger_report";
     protected static final SimpleDateFormat reportFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    protected static final String IGNORE_STATE = "Running";
 
     protected String file;
     protected String triggerName;
-    protected String fromDate;
-    protected String toDate;
+    protected long fromDate;
+    protected long toDate;
 
     public TriggerReportByCustomDateAction() {
         super("com.jscape.inet.mft.workflow.actions.repo.properties.TriggerReportByCustomDateHelp");
@@ -40,20 +42,20 @@ public class TriggerReportByCustomDateAction extends AbstractAction {
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("File", new FileField(), true, false),
             new PropertyDescriptor("TriggerName", new StringField(), true, false),
-            new PropertyDescriptor("FromDate", new StringField(), true, false),
-            new PropertyDescriptor("ToDate", new StringField(), true, false),
+            new PropertyDescriptor("FromDate", new DateField(), true, false),
+            new PropertyDescriptor("ToDate", new DateField(), true, false),
             ACTION_PRIORITY_DESCRIPTOR,
             TRIGGER_ERROR_MESSAGE_DESCRIPTOR,
             LOG_ACTION_DESCRIPTOR,
     };
 
-    public void setFromDate(String value) {
-        Assert.isValidString(value);
+    public void setFromDate(long value) {
+        Assert.isValidString(String.valueOf(value));
         this.fromDate = value;
     }
 
-    public void setToDate(String value) {
-        Assert.isValidString(value);
+    public void setToDate(long value) {
+        Assert.isValidString(String.valueOf(value));
         this.toDate = value;
     }
 
@@ -97,15 +99,15 @@ public class TriggerReportByCustomDateAction extends AbstractAction {
         }
     }
 
-    private void fillDataOf(XSSFSheet sheet, String fromDate, String toDate)
+    private void fillDataOf(XSSFSheet sheet, long fromDate, long toDate)
             throws Exception {
         int rowNum = 1;
-        Date fDate = dateFormat.parse(fromDate);
-        Date tDate = dateFormat.parse(toDate);
-        tDate = new Date(tDate.getTime() + TimeUnit.DAYS.toMillis(1));
         for (TriggerState state : triggerStates()) {
             Date triggerDate = new Date(state.getStartTime());
-            if (Arrays.asList(this.triggerName.split(",")).contains(state.getTriggerName()) && (triggerDate.after(fDate) && triggerDate.before(tDate))) {
+            if (Arrays.asList(this.triggerName.split(",")).contains(state.getTriggerName())
+                    && !state.getStatus().name().equalsIgnoreCase(IGNORE_STATE)
+                    && triggerDate.after(new Date(fromDate))
+                    && triggerDate.before(new Date(toDate + TimeUnit.DAYS.toMillis(1)))) {
                 XSSFRow row = sheet.createRow(rowNum++);
                 createRow(state, row);
             }
@@ -122,7 +124,7 @@ public class TriggerReportByCustomDateAction extends AbstractAction {
     private TriggerState[] triggerStates() throws Exception {
         try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
             client.connect();
-            return client.triggerStatesOf(this.domain.getName());
+            return client.triggerStatesOf(this.event.getDomainName());
         }
     }
 

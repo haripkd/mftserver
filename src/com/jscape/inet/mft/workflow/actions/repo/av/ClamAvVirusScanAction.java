@@ -23,6 +23,8 @@ public class ClamAvVirusScanAction extends AbstractAction {
 
     protected static final String DESCRIPTION = "Scan the directory or file using Clam AV";
 
+	protected static final String LINE_SEPARATOR = "line.separator";
+
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("Location", new FileField(), true, false),
             new PropertyDescriptor("Arguments", new StringField(), true, false),
@@ -98,7 +100,7 @@ public class ClamAvVirusScanAction extends AbstractAction {
         if (this.arguments == null && this.arguments.isEmpty()) {
             return;
         }
-        this.commandElements = AvUtil.formatArgument(this.arguments, this.location,false);
+        this.commandElements = AvUtil.formatArgument(this.arguments, this.location,true);
     }
 
     private void startScan() throws Exception {
@@ -172,7 +174,8 @@ public class ClamAvVirusScanAction extends AbstractAction {
         public void run() {
             try {
                 FileWriter fileWriter = new FileWriter(this.outFile,true);
-                fileWriter.write(dateOfScan + new Date() + "\n");
+                fileWriter.write(dateOfScan + new Date());
+				fileWriter.write(System.getProperty(LINE_SEPARATOR));
                 fileWriter.write(this.outLog);
                 fileWriter.flush();
                 fileWriter.close();

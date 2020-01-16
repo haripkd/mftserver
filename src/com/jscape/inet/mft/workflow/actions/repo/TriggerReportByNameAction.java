@@ -24,6 +24,7 @@ public class TriggerReportByNameAction extends AbstractAction {
     protected static final String[] COLUMN_HEADER = {"Trigger ID", "Trigger Name", "Start Date & Time", "End Date & Time", "Status"};
     protected static final String SHEET_NAME = "Trigger_report";
     protected static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    protected static final String IGNORE_STATE = "Running";
 
 
     protected String file;
@@ -86,7 +87,8 @@ public class TriggerReportByNameAction extends AbstractAction {
             throws Exception {
         int rowNum = 1;
         for (TriggerState state : triggerStates()) {
-            if (Arrays.asList(this.triggerName.split(",")).contains(state.getTriggerName())) {
+            if ((Arrays.asList(this.triggerName.split(",")).contains(state.getTriggerName()))
+                    && (!state.getStatus().name().equalsIgnoreCase(IGNORE_STATE))) {
                 XSSFRow row = sheet.createRow(rowNum++);
                 createRow(state, row);
             }
@@ -103,7 +105,7 @@ public class TriggerReportByNameAction extends AbstractAction {
     private TriggerState[] triggerStates() throws Exception {
         try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
             client.connect();
-            return client.triggerStatesOf(this.domain.getName());
+            return client.triggerStatesOf(this.event.getDomainName());
         }
     }
 

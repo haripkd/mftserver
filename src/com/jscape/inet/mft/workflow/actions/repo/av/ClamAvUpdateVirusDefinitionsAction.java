@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
     protected static final String DESCRIPTION = "Update the database using Fresh clam";
+	protected static final String LINE_SEPARATOR = "line.separator";
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("Location", new FileField(), true, false),
             new PropertyDescriptor("Arguments", new StringField(), false, false),
@@ -172,7 +173,8 @@ public class ClamAvUpdateVirusDefinitionsAction extends AbstractAction {
         public void run() {
             try {
                 FileWriter fileWriter = new FileWriter(this.outFile,true);
-                fileWriter.write(dateOfScan + new Date() + "\n");
+                fileWriter.write(dateOfScan + new Date());
+				fileWriter.write(System.getProperty(LINE_SEPARATOR));
                 fileWriter.write(this.outLog);
                 fileWriter.flush();
                 fileWriter.close();

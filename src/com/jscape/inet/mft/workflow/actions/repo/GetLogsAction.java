@@ -1,6 +1,7 @@
 package com.jscape.inet.mft.workflow.actions.repo;
 
 import com.jscape.inet.mft.workflow.AbstractAction;
+import com.jscape.inet.mft.workflow.actions.AdHocEmailFileTransferAction;
 import com.jscape.util.Assert;
 import com.jscape.util.reflection.PropertyDescriptor;
 import com.jscape.util.reflection.StringField;
@@ -72,14 +73,15 @@ public class GetLogsAction extends AbstractAction {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
         // output file
+        
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
-
+        String exceptions_list[] = exceptions.split(",");
         String strLine;
         Boolean broken = false;
         int line = 0;
 
         while ((strLine = br.readLine()) != null) {
-            if (Arrays.asList(exceptions.split(",")).contains(strLine)){		// keyword List
+            if (contains(strLine,exceptions_list)){		// keyword
                 broken = true;
             }
             if (broken) {
@@ -95,6 +97,19 @@ public class GetLogsAction extends AbstractAction {
 
         in.close();
         out.close();
+
+    }
+
+    private static boolean contains(String strLine, String[] exceptions_list) {
+        boolean isFound=false;
+        for (String exception : exceptions_list){
+            if(strLine.contains(exception)) {
+                isFound = true;
+                break;
+            }
+        }
+
+        return isFound;
     }
 
 

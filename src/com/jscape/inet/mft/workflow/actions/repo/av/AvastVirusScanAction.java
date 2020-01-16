@@ -24,6 +24,8 @@ public class AvastVirusScanAction extends AbstractAction {
 
     protected static final String DESCRIPTION = "Scan the directory or file using Avast";
 
+	protected static final String LINE_SEPARATOR = "line.separator";
+
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("Location", new FileField(), true, false),
             new PropertyDescriptor("Arguments", new StringField(), true, false),
@@ -175,7 +177,8 @@ public class AvastVirusScanAction extends AbstractAction {
         public void run() {
             try {
                 FileWriter fileWriter = new FileWriter(this.outFile,true);
-                fileWriter.write(dateOfScan + new Date() + "\n");
+                fileWriter.write(dateOfScan + new Date());
+				fileWriter.write(System.getProperty(LINE_SEPARATOR));
                 fileWriter.write(this.outLog);
                 fileWriter.flush();
                 fileWriter.close();
