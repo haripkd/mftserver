@@ -57,6 +57,13 @@ Need both, Copy both the files as mentioned above.
 
 Restart the server to get Custom actions and Custom functions inside JSCAPE MFT Server.
 
+Note : client.cfg is mandatory and check if the file is located in jscape-mft-server-installation-path/etc folder. If the file does not exist execute the below command
+
+./js-client-configuration -host [host] -port [port] -timeout [timeout in seconds] -user [username] -password [password] (Linux)
+
+js-client-configuration.exe -host [host] -port [port] -timeout [timeout in seconds] -user [username] -password [password] (Windows)
+
+
 ```
 
 
