@@ -95,7 +95,7 @@ public class FailedTriggerReportAction extends AbstractAction {
     private TriggerState[] triggerStates() throws Exception {
         try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
             client.connect();
-            return client.triggerStatesOf(this.domain.getName());
+            return client.triggerStatesOf(this.event.getDomainName());
         }
     }
 

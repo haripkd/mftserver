@@ -97,7 +97,7 @@ public class OFTPMessagesReportAction extends AbstractAction {
             throws Exception {
         try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
             client.connect();
-            return client.oftpMessageInfosOf(this.domain.getName());
+            return client.oftpMessageInfosOf(this.event.getDomainName());
         }
     }
 

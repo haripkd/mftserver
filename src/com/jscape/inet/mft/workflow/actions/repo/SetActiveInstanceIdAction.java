@@ -106,9 +106,9 @@ public class SetActiveInstanceIdAction extends AbstractAction {
     private void setGlobalVariableForActiveInstanceId(String host1applicationInstanceId) throws ManagerException {
         try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
             client.connect();
-            TriggerServiceConfiguration serviceConfiguration = client.triggerServiceConfiguration(this.domain.getName());
+            TriggerServiceConfiguration serviceConfiguration = client.triggerServiceConfiguration(this.event.getDomainName());
             serviceConfiguration.getGlobalVariables().put(ACTIVE_INSTANCE_ID, host1applicationInstanceId);
-            client.updateTriggerServiceConfiguration(this.domain.getName(), serviceConfiguration);
+            client.updateTriggerServiceConfiguration(this.event.getDomainName(), serviceConfiguration);
             client.disconnect();
         }
     }
