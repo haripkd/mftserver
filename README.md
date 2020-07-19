@@ -78,34 +78,31 @@ Functions
 1.  IsHoliday
 
 2.  AppendDateOrTimeFileName
+
+3.  FileContains
  
-3.  IsEndOfMonth
+4.  IsEndOfMonth
 
-4.  IsServerKeyValid
-
-5.  IsCertificateValid
-
-6.  FileContentCompare
+5.  FileContentCompare
  
-7.  GetDirectorySize
+6.  GetDirectorySize
 
-8.  GetDiskUsageInPercentile
+7.  GetDiskUsageInPercentile
 
-9.  IsFileNewer
+8.  IsFileNewer
 
-10. IsFileNewerByDate
+9.  IsFileNewerByDate
 
-11. IsFileNewerByTimeStamp
+10. IsFileNewerByTimeStamp
 
-12. GetMaximumHeapInMb
+11. GetMaximumHeapInMb
 
-13. GetUsedHeapInMb
+12. GetUsedHeapInMb
 
-14. GetFreeHeapInPercentile
+13. GetFreeHeapInPercentile
 
-15. GetHeapUsageInPercentile
+14. GetHeapUsageInPercentile
 
-16. FileContains
 
 Actions
 ******
