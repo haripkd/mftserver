@@ -26,6 +26,11 @@ public class OFTPMessagesReportAction extends AbstractAction {
     protected static final String SHEET_NAME = "OFTP Messages";
     protected static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    protected static final String USER_DIRECTORY = "user.dir";
+    protected static final String FILE_SEPARATOR = "file.separator";
+    protected static final String ETC_FOLDER = "etc";
+    protected static final String CLIENT_CONFG = "client.cfg";
+
     protected static final PropertyDescriptor[] DESCRIPTORS = {
             new PropertyDescriptor("File", new FileField(), true, false),
             ACTION_PRIORITY_DESCRIPTOR,
@@ -95,10 +100,13 @@ public class OFTPMessagesReportAction extends AbstractAction {
 
     private List<OftpMessageInfo> infos()
             throws Exception {
-        try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
-            client.connect();
-            return client.oftpMessageInfosOf(this.event.getDomainName());
-        }
+        String clientConfigPath = System.getProperty(USER_DIRECTORY)
+                + System.getProperty(FILE_SEPARATOR)
+                + ETC_FOLDER
+                + System.getProperty(FILE_SEPARATOR) + CLIENT_CONFG;
+        ManagerSubsystem managerSubsystem = new ManagerSubsystem(clientConfigPath);
+        managerSubsystem.connect();
+        return managerSubsystem.oftpMessageInfosOf(this.domain.getName());
     }
 
     private void createRow(OftpMessageInfo oftpMessageInfo, XSSFRow row) {

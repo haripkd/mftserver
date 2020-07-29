@@ -26,6 +26,11 @@ public class TriggerReportByNameAction extends AbstractAction {
     protected static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     protected static final String IGNORE_STATE = "Running";
 
+    protected static final String USER_DIRECTORY = "user.dir";
+    protected static final String FILE_SEPARATOR = "file.separator";
+    protected static final String ETC_FOLDER = "etc";
+    protected static final String CLIENT_CONFG = "client.cfg";
+
 
     protected String file;
     protected String triggerName;
@@ -103,10 +108,13 @@ public class TriggerReportByNameAction extends AbstractAction {
     }
 
     private TriggerState[] triggerStates() throws Exception {
-        try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
-            client.connect();
-            return client.triggerStatesOf(this.event.getDomainName());
-        }
+        String clientConfigPath = System.getProperty(USER_DIRECTORY)
+                + System.getProperty(FILE_SEPARATOR)
+                + ETC_FOLDER
+                + System.getProperty(FILE_SEPARATOR) + CLIENT_CONFG;
+        ManagerSubsystem managerSubsystem = new ManagerSubsystem(clientConfigPath);
+        managerSubsystem.connect();
+        return managerSubsystem.triggerStatesOf(this.domain.getName());
     }
 
     private void createRow(TriggerState triggerState, XSSFRow row) {

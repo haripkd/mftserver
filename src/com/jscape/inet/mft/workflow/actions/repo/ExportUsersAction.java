@@ -189,7 +189,7 @@ public class ExportUsersAction extends AbstractAction {
             row.createCell(8).setCellValue(null != account.getDownloadsQuota() ? getQuoataInMb(account) + MEGA_BYTES : "");
             row.createCell(9).setCellValue(null != account.getTransfersQuota() ? getQuoataInMb(account) + MEGA_BYTES : "");
             row.createCell(10).setCellValue(account.isSecured() ? ENABLED : DISABLED);
-            row.createCell(11).setCellValue(account.isPasswordChangingAllowed() ? ENABLED : DISABLED);
+            row.createCell(11).setCellValue(account.getPasswordChangingAllowed() ? ENABLED : DISABLED);
             row.createCell(12).setCellValue(account.isEmailFileTransferAllowed() ? ALLOWED : NOT_ALLOWED);
             row.createCell(13).setCellValue(account.isUsePhoneAuthentication() ? ENABLED : DISABLED);
             row.createCell(14).setCellValue(simpleDateFormat.format(account.getPasswordDate()));
