@@ -113,36 +113,25 @@ Actions
 
 3.  Avast Virus Scan
 
-3.  Avast Virus update
+4.  Avast Virus update
 
-4.  Kasper Sky Virus update
+5.  Kasper Sky Virus update
 
-5.  Kasper Sky Virus Scan 
+6.  Kasper Sky Virus Scan 
 
-6.  Split Large Text File
+7.  Split Large Text File
 
-7.  Export Users 
-
-8.  Export Keys
+8.  Export Users 
 
 9.  Get Logs
 
-10. Copy Url To File
+10. AS2 Messages Report
 
-11. AS2 Messages Report
+11. OFTP Messages Report
 
-12. OFTP Messages Report
+12. Failed Trigger Report
 
-13. Failed Trigger Report
-
-14. Trigger Report By Name
-
-15. Set Active Instance Id
-
-16. Replace Users Path
-
-17. Trigger Report By Custom Date
-
+13. Trigger Report By Name
 
 ```
 
