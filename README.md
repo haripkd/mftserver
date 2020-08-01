@@ -1,6 +1,7 @@
 # Open source code repository for JSCAPE MFT Server 
  
- This repository contains the source files for functions and actions which are used in JSCAPE-MFT-Server.
+ This repository contains the source files for functions and actions which are used in JSCAPE MFT Server version 9.
+ The source code updated to the latest version of 9 which is 9.3.25.
 
  ## Getting Started
 
