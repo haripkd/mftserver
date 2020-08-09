@@ -107,6 +107,8 @@ Functions
 
 16. FileContains
 
+17. IsFileCreatedToday
+
 Actions
 ******
 
