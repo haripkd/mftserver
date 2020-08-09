@@ -98,7 +98,7 @@ public class AS2MessagesReportAction extends AbstractAction {
             throws Exception {
         try (ManagerSubsystem client = new ManagerSubsystem(Paths.get("etc/client.cfg").toFile())) {
             client.connect();
-            return client.as2MessageInfosOf(this.domain.getName());
+            return client.as2MessageInfosOf(this.event.getDomainName());
         }
     }
 
