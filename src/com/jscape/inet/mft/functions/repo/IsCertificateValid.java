@@ -37,8 +37,9 @@ public class IsCertificateValid extends Function {
         boolean isValid = true;
         int days = Integer.parseInt(value[0].toString());
         String instPath = System.getProperty(USER_DIR) + File.separator + FOLDER_NAME + File.separator + CLIENT_CONFIG_FILE_NAME;
+        ManagerSubsystem managerSubsystem = null;
         try {
-            ManagerSubsystem managerSubsystem = new ManagerSubsystem(instPath);
+            managerSubsystem = new ManagerSubsystem(instPath);
             managerSubsystem.connect();
             CertificateSummary[] certificates = managerSubsystem.clientCertificateSummaries();
             for (CertificateSummary certificate : certificates) {
@@ -50,7 +51,10 @@ public class IsCertificateValid extends Function {
                 }
             }
         } catch (Exception e) {
+            if (managerSubsystem != null) managerSubsystem.close();
             System.out.println("Not able to connect manager system : " + e); // Check for exception in System out log
+        } finally {
+            if (managerSubsystem != null) managerSubsystem.close();
         }
         return isValid;
     }
