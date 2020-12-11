@@ -33,24 +33,28 @@ public class IsServerKeyValid extends Function {
 
     @Override
     public Object evaluate(Object[] value) {
-        boolean isValid = true;
+        boolean isExpired = false;
         int days = Integer.parseInt(value[0].toString());
         String instPath = System.getProperty(USER_DIR) + File.separator + FOLDER_NAME + File.separator + CLIENT_CONFIG_FILE_NAME;
-        try{
-            ManagerSubsystem managerSubsystem = new ManagerSubsystem(instPath);
+        ManagerSubsystem managerSubsystem = null;
+        try {
+            managerSubsystem = new ManagerSubsystem(instPath);
             managerSubsystem.connect();
             ServerKeySummary[] serverKeys = managerSubsystem.serverKeySummaries();
-            for (ServerKeySummary serverKey : serverKeys){
+            for (ServerKeySummary serverKey : serverKeys) {
                 long diffInMilliSecs = Math.abs(Calendar.getInstance().getTimeInMillis() - serverKey.getCertificateEndDate());
                 long diff = TimeUnit.DAYS.convert(diffInMilliSecs, TimeUnit.MILLISECONDS);
-                if(diff <= days){
-                    isValid=false;
+                if (diff <= days) {
+                    isExpired = true;
                     break;
                 }
             }
-        }catch (Exception e) {
-           System.out.println("Not able to connect manager system : " + e); // Check for exception in System out log
+        } catch (Exception e) {
+            if (managerSubsystem != null) managerSubsystem.close();
+            System.out.println("Not able to connect manager system : " + e); // Check for exception in System out log
+        } finally {
+            if (managerSubsystem != null) managerSubsystem.close();
         }
-        return isValid;
+        return isExpired;
     }
 }
