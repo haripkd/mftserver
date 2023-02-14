@@ -1,6 +1,14 @@
 # Open source code repository for JSCAPE MFT Server 
  
  This repository contains the source files for functions and actions which are used in JSCAPE-MFT-Server.
+ 
+ ## Promoted all functions and actions from 12.5 version.
+ 
+ All marketplace custom functions and actions are available from 12.5 version of MFT server 
+ 
+ Download the version from here -- https://www.jscape.com/downloads/jscape-mft-server 
+ 
+ Access the documentation here -- https://files.jscape.com/secureftpserver/docs/ 
 
  ## Getting Started
 
