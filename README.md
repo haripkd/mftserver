@@ -6,7 +6,7 @@
  
  All the functions and actions are promoted and available from 12.5 version of JSCAPE MFT Server. 
  
- Please download a copy here - https://www.jscape.com/downloads/jscape-mft-server 
+ Please download here - https://www.jscape.com/downloads/jscape-mft-server 
 
  ## Getting Started
 
